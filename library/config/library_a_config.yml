@@ -15,10 +15,10 @@ stompTopicName: /topic/32304.book.*
 libraryName: library-a
 
 # TODO: Apollo STOMP Broker URL and login
-#apolloUser: "admin"
-#apolloPassword: "password"
-#apolloHost: "54.215.133.131"
-#apolloPort: 61613
+apolloUser: "admin"
+apolloPassword: "password"
+apolloHost: "54.215.133.131"
+apolloPort: 61613
 
 # HTTP-specific options.
 http:

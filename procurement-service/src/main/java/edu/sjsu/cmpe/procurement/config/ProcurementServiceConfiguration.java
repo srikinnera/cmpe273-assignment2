@@ -28,12 +28,12 @@ public class ProcurementServiceConfiguration extends Configuration {
     private String apolloUser;
     
 
-    @NotEmpty
+	@NotEmpty
     @JsonProperty
     private String apolloPassword;
 
    
-    @Valid
+	@Valid
     @NotNull
     @JsonProperty
     private JerseyClientConfiguration httpClient = new JerseyClientConfiguration();
@@ -43,14 +43,14 @@ public class ProcurementServiceConfiguration extends Configuration {
      * @return
      */
     public JerseyClientConfiguration getJerseyClientConfiguration() {
-    return httpClient;
+	return httpClient;
     }
 
     /**
      * @return the stompQueueName
      */
     public String getStompQueueName() {
-    return stompQueueName;
+	return stompQueueName;
     }
 
     /**
@@ -58,46 +58,46 @@ public class ProcurementServiceConfiguration extends Configuration {
      *            the stompQueueName to set
      */
     public void setStompQueueName(String stompQueueName) {
-    this.stompQueueName = stompQueueName;
+	this.stompQueueName = stompQueueName;
     }
 
     public String getStompTopicPrefix() {
-    return stompTopicPrefix;
+	return stompTopicPrefix;
     }
 
     public void setStompTopicPrefix(String stompTopicPrefix) {
-    this.stompTopicPrefix = stompTopicPrefix;
+	this.stompTopicPrefix = stompTopicPrefix;
     }
     public String getApolloHost() {
-        return apolloHost;
-    }
+		return apolloHost;
+	}
 
-    public void setApolloHost(String apolloHost) {
-        this.apolloHost = apolloHost;
-    }
+	public void setApolloHost(String apolloHost) {
+		this.apolloHost = apolloHost;
+	}
 
-    public String getApolloPort() {
-        return apolloPort;
-    }
+	public String getApolloPort() {
+		return apolloPort;
+	}
 
-    public void setApolloPort(String apolloPort) {
-        this.apolloPort = apolloPort;
-    }
+	public void setApolloPort(String apolloPort) {
+		this.apolloPort = apolloPort;
+	}
 
-    public String getApolloUser() {
-        return apolloUser;
-    }
+	public String getApolloUser() {
+		return apolloUser;
+	}
 
-    public void setApolloUser(String apolloUser) {
-        this.apolloUser = apolloUser;
-    }
+	public void setApolloUser(String apolloUser) {
+		this.apolloUser = apolloUser;
+	}
 
-    public String getApolloPassword() {
-        return apolloPassword;
-    }
+	public String getApolloPassword() {
+		return apolloPassword;
+	}
 
-    public void setApolloPassword(String apolloPassword) {
-        this.apolloPassword = apolloPassword;
-    }
+	public void setApolloPassword(String apolloPassword) {
+		this.apolloPassword = apolloPassword;
+	}
 
 }

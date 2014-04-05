@@ -67,8 +67,15 @@ public class BookRepository implements BookRepositoryInterface {
     @Override
     public Book saveBook(Book newBook) {
 	checkNotNull(newBook, "newBook instance must not be null");
+	Long isbn ;
+	if(newBook.getIsbn()==0){
 	// Generate new ISBN
-	Long isbn = generateISBNKey();
+	isbn = generateISBNKey();
+	}
+	else
+	{
+	isbn=newBook.getIsbn();
+	}
 	newBook.setIsbn(isbn);
 	// TODO: create and associate other fields such as author
 
