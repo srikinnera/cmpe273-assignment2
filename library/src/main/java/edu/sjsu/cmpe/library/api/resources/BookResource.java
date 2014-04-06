@@ -5,8 +5,8 @@ import javax.jms.DeliveryMode;
 import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.MessageProducer;
-import javax.jms.TextMessage;
 import javax.jms.Session;
+import javax.jms.TextMessage;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -57,8 +57,10 @@ public class BookResource {
     @Timed(name = "view-book")
     public BookDto getBookByIsbn(@PathParam("isbn") LongParam isbn) {
 	Book book = bookRepository.getBookByISBN(isbn.get());
+	System.out.println(isbn.get());
 	BookDto bookResponse = new BookDto(book);
-	bookResponse.addLink(new LinkDto("view-book", "/books/" + book.getIsbn(),"GET"));
+	bookResponse.addLink(new LinkDto("view-book", "/books/" + book.getIsbn(),
+		"GET"));
 	bookResponse.addLink(new LinkDto("update-book-status", "/books/"
 		+ book.getIsbn(), "PUT"));
 	// add more links
@@ -98,30 +100,30 @@ public class BookResource {
 	    @DefaultValue("available") @QueryParam("status") Status status) throws JMSException {
 	Book book = bookRepository.getBookByISBN(isbn.get());
 	book.setStatus(status);
-	if(book.getStatus().toString()=="lost"){
-		String user = env("APOLLO_USER", LibraryService.user);
-		String password = env("APOLLO_PASSWORD", LibraryService.password);
-		String host = env("APOLLO_HOST", LibraryService.host);
-		int port = Integer.parseInt(env("APOLLO_PORT", LibraryService.port));
-		String destination = LibraryService.destination;
-
-		StompJmsConnectionFactory factory = new StompJmsConnectionFactory();
-		factory.setBrokerURI("tcp://" + host + ":" + port);
-
-		Connection connection=factory.createConnection(user, password);
-		connection.start();
-	    Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-		Destination dest = new StompJmsDestination(destination);
-		MessageProducer producer = session.createProducer(dest);
-		producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
-		System.out.println("Sending messages to " + destination + "...");
-		String data=LibraryService.libraryName +":" +isbn;
-		TextMessage msg = session.createTextMessage(data);
-		msg.setLongProperty("id", System.currentTimeMillis());
-		producer.send(msg);
-		connection.close();
-	    }
-
+	 if((book.getStatus().toString())=="lost")
+	 {
+		 System.out.println("user"+LibraryService.user);
+		 System.out.println("password"+LibraryService.password);
+		 System.out.println("host"+ LibraryService.host);
+		 System.out.println("port"+LibraryService.port);
+		 	StompJmsConnectionFactory factory = new StompJmsConnectionFactory();
+		 	factory.setBrokerURI("tcp://" + LibraryService.host + ":" + LibraryService.port);
+		 	Connection connection = factory.createConnection(LibraryService.user, LibraryService.password);
+			System.out.println(connection);
+			connection.start();
+			System.out.println("After connection start");
+			Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+			Destination dest = new StompJmsDestination(LibraryService.destination);
+			MessageProducer producer = session.createProducer(dest);
+			producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+			//System.out.println("Sending messages to " + queue + "...");
+			String data = LibraryService.libraryName+" "+isbn;
+			TextMessage msg = session.createTextMessage(data);
+			msg.setLongProperty("id", System.currentTimeMillis());
+			producer.send(msg);
+			connection.close();
+			System.out.println("Sending messages to " );//+ queue + "...");		
+	 }
 	BookDto bookResponse = new BookDto(book);
 	String location = "/books/" + book.getIsbn();
 	bookResponse.addLink(new LinkDto("view-book", location, "GET"));
@@ -139,13 +141,5 @@ public class BookResource {
 
 	return bookResponse;
     }
-    private static String env(String key, String defaultValue) {
-    	String rc = System.getenv(key);
-    	if( rc== null ) {
-    	    return defaultValue;
-    	}
-    	return rc;
-        }
-
 }
 

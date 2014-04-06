@@ -22,23 +22,9 @@
 			<id>repo.codahale.com</id>
 			<url>http://repo.codahale.com/</url>
 		</repository>
-		<repository>
-			<id>Fusesource Snapshots</id>
-			<url>http://repo.fusesource.com/nexus/content/repositories/snapshots</url>
-		</repository>
 	</repositories>
 
 	<dependencies>
-	<dependency>
-	<groupId>org.json</groupId>
-	<artifactId>json</artifactId>
-	<version>20090211</version>
-     </dependency>
-	<dependency>
-			<groupId>org.fusesource.stompjms</groupId>
-			<artifactId>stompjms-client</artifactId>
-			<version>1.13</version>
-		</dependency>
 		<dependency>
 			<groupId>com.yammer.dropwizard</groupId>
 			<artifactId>dropwizard-core</artifactId>
@@ -53,6 +39,11 @@
 			<groupId>org.apache.geronimo.specs</groupId>
 			<artifactId>geronimo-jms_1.1_spec</artifactId>
 			<version>1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.fusesource.stompjms</groupId>
+			<artifactId>stompjms-client</artifactId>
+			<version>1.13</version>
 		</dependency>
 	</dependencies>
 
