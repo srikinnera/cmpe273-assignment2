@@ -4,12 +4,12 @@
 
 # Apollo STOMP Broker Configuration
 # FIXME - Replace 99999 with your ID
-stompQueueName: /queue/38622.book.orders
+stompQueueName: /queue/32304.book.orders
 
 # Library A subscribes to all book categories
 # FIXME - Replace 99999 with your ID
 # If book.* doesn't work, try book.all
-stompTopicName: /topic/38622.book.*
+stompTopicName: /topic/32304.book.*
 
 # Name for library A
 libraryName: library-a
