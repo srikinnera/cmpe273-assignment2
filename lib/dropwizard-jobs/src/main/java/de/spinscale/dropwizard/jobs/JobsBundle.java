@@ -19,7 +19,7 @@ public class JobsBundle implements Bundle {
     	this.scanURL = scanURL;
     }
 
-     @Override
+    @Override
     public void run(Environment environment) {
     	environment.manage(new JobManager(scanURL));
     }

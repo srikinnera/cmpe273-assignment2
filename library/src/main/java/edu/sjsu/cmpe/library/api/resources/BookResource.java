@@ -1,12 +1,6 @@
 package edu.sjsu.cmpe.library.api.resources;
 
-import javax.jms.Connection;
-import javax.jms.DeliveryMode;
-import javax.jms.Destination;
 import javax.jms.JMSException;
-import javax.jms.MessageProducer;
-import javax.jms.Session;
-import javax.jms.TextMessage;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -21,43 +15,44 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.fusesource.stomp.jms.StompJmsConnectionFactory;
-import org.fusesource.stomp.jms.StompJmsDestination;
-
 import com.yammer.dropwizard.jersey.params.LongParam;
 import com.yammer.metrics.annotation.Timed;
 
-import edu.sjsu.cmpe.library.LibraryService;
 import edu.sjsu.cmpe.library.domain.Book;
 import edu.sjsu.cmpe.library.domain.Book.Status;
 import edu.sjsu.cmpe.library.dto.BookDto;
 import edu.sjsu.cmpe.library.dto.BooksDto;
 import edu.sjsu.cmpe.library.dto.LinkDto;
+import edu.sjsu.cmpe.library.repository.BookRepository;
 import edu.sjsu.cmpe.library.repository.BookRepositoryInterface;
 
 @Path("/v1/books")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class BookResource {
-    /** bookRepository instance */
-    private final BookRepositoryInterface bookRepository;
 
-    /**
+public class BookResource 
+
+{
+	/** bookRepository instance */
+    private final BookRepositoryInterface bookRepository;
+    private final BookRepository bookRepo;
+     /**
      * BookResource constructor
      * 
      * @param bookRepository
      *            a BookRepository instance
      */
-    public BookResource(BookRepositoryInterface bookRepository) {
-	this.bookRepository = bookRepository;
-    }
+    public BookResource(BookRepositoryInterface bookRepository,BookRepository bookRepo) {
+    this.bookRepository = bookRepository;
+	this.bookRepo = bookRepo;
+	
+}
 
     @GET
     @Path("/{isbn}")
     @Timed(name = "view-book")
     public BookDto getBookByIsbn(@PathParam("isbn") LongParam isbn) {
 	Book book = bookRepository.getBookByISBN(isbn.get());
-	System.out.println(isbn.get());
 	BookDto bookResponse = new BookDto(book);
 	bookResponse.addLink(new LinkDto("view-book", "/books/" + book.getIsbn(),
 		"GET"));
@@ -99,31 +94,13 @@ public class BookResource {
     public Response updateBookStatus(@PathParam("isbn") LongParam isbn,
 	    @DefaultValue("available") @QueryParam("status") Status status) throws JMSException {
 	Book book = bookRepository.getBookByISBN(isbn.get());
-	book.setStatus(status);
-	 if((book.getStatus().toString())=="lost")
-	 {
-		 System.out.println("user"+LibraryService.user);
-		 System.out.println("password"+LibraryService.password);
-		 System.out.println("host"+ LibraryService.host);
-		 System.out.println("port"+LibraryService.port);
-		 	StompJmsConnectionFactory factory = new StompJmsConnectionFactory();
-		 	factory.setBrokerURI("tcp://" + LibraryService.host + ":" + LibraryService.port);
-		 	Connection connection = factory.createConnection(LibraryService.user, LibraryService.password);
-			System.out.println(connection);
-			connection.start();
-			System.out.println("After connection start");
-			Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-			Destination dest = new StompJmsDestination(LibraryService.destination);
-			MessageProducer producer = session.createProducer(dest);
-			producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
-			//System.out.println("Sending messages to " + queue + "...");
-			String data = LibraryService.libraryName+" "+isbn;
-			TextMessage msg = session.createTextMessage(data);
-			msg.setLongProperty("id", System.currentTimeMillis());
-			producer.send(msg);
-			connection.close();
-			System.out.println("Sending messages to " );//+ queue + "...");		
-	 }
+	//book.setStatus(status);
+		// Check if the book is avaiable, if Yes then modify the status
+	if(book.getStatus().equals(Status.available)) {
+		book=bookRepository.updateBookStatus(book, status);
+	}
+
+	
 	BookDto bookResponse = new BookDto(book);
 	String location = "/books/" + book.getIsbn();
 	bookResponse.addLink(new LinkDto("view-book", location, "GET"));
@@ -136,7 +113,8 @@ public class BookResource {
     @Timed(name = "delete-book")
     public BookDto deleteBook(@PathParam("isbn") LongParam isbn) {
 	bookRepository.delete(isbn.get());
-	BookDto bookResponse = new BookDto(null);
+	BookDto bookResponse = new BookDto(
+			null);
 	bookResponse.addLink(new LinkDto("create-book", "/books", "POST"));
 
 	return bookResponse;

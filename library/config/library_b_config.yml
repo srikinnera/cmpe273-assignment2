@@ -1,17 +1,15 @@
+
 ##############################
 # Library B instance Config  #
 ##############################
 
 # Apollo STOMP Broker Configuration
 # FIXME - Replace 99999 with your ID
-stompQueueName: /queue/32304book.orders
+stompQueueName: /queue/32304.book.orders
 
 # Library B subscribes to the Computer category ONLY!
 # FIXME - Replace 99999 with your ID
 stompTopicName: /topic/32304.book.computer
-
-# Name for library B
-libraryName: library-b
 
 # TODO: Apollo STOMP Broker URL and login
 apolloUser: "admin"

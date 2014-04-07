@@ -1,4 +1,4 @@
-package edu.sjsu.cmpe.library.ui.views;
+	package edu.sjsu.cmpe.library.ui.views;
 
 import com.yammer.dropwizard.views.View;
 
