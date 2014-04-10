@@ -1,7 +1,9 @@
 package edu.sjsu.cmpe.library;
 
+import java.net.MalformedURLException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
 import javax.jms.JMSException;
 
 import org.slf4j.Logger;
@@ -16,8 +18,8 @@ import com.yammer.dropwizard.views.ViewBundle;
 import edu.sjsu.cmpe.library.api.resources.BookResource;
 import edu.sjsu.cmpe.library.api.resources.RootResource;
 import edu.sjsu.cmpe.library.config.LibraryServiceConfiguration;
+import edu.sjsu.cmpe.library.domain.Consumer;
 import edu.sjsu.cmpe.library.repository.BookRepository;
-import edu.sjsu.cmpe.library.messaging.Listener;
 import edu.sjsu.cmpe.library.repository.BookRepositoryInterface;
 import edu.sjsu.cmpe.library.ui.resources.HomeResource;
 
@@ -34,62 +36,54 @@ public class LibraryService extends Service<LibraryServiceConfiguration> {
 	bootstrap.setName("library-service");
 	bootstrap.addBundle(new ViewBundle());
 	bootstrap.addBundle(new AssetsBundle());
+	//bootstrap.addBundle(new AssetsBundle());
     }
 
     @Override
     public void run(LibraryServiceConfiguration configuration,
-	    Environment environment) throws Exception 
-	{
-    	
+	    Environment environment) throws Exception {
 	// This is how you pull the configurations from library_x_config.yml
 	String queueName = configuration.getStompQueueName();
 	String topicName = configuration.getStompTopicName();
-	
-	log.debug("Queue name is {}. Topic name is {}", queueName,
+	log.debug("{} - Queue name is {}. Topic name is {}",
+		configuration.getLibraryName(), queueName,
 		topicName);
-
 	// TODO: Apollo STOMP Broker URL and login
-	String apolloUser=configuration.getApolloUser();
-	String apolloPassword=configuration.getApolloPassword();
-	String apolloHost=configuration.getApolloHost();
-	int apolloPort=configuration.getApolloPort();
-	
-	log.debug(log+"\nApollo User: "+apolloUser+"\nApollo Password: "+apolloPassword+"\nApollo Host: "+
-            apolloHost+"\nApollo Port: "+apolloPort);
+	String libraryname = configuration.getLibraryName();
+	String apolloHost = configuration.getApolloHost();
+	String apolloPort = configuration.getApolloPort();
+	String apolloUser = configuration.getApolloUser();
+	String apolloPassword = configuration.getApolloPassword();
 
 	/** Root API */
-		
-    environment.addResource(RootResource.class);
-    
+	environment.addResource(RootResource.class);
 	/** Books APIs */
-    
-	BookRepositoryInterface bookRepository = new BookRepository(configuration);
-	BookRepository bookrepoactions=new BookRepository(configuration);
-	environment.addResource(new BookResource(bookRepository,bookrepoactions));
+	BookRepositoryInterface bookRepository = new BookRepository();
+	environment.addResource(new BookResource(bookRepository, queueName, topicName, libraryname, apolloHost, apolloPort, apolloUser, apolloPassword ));
 
 	/** UI Resources */
+	environment.addResource(new HomeResource(bookRepository));
 	
-	environment.addResource(new HomeResource(bookRepository));	
-	final Listener listener = new Listener(configuration,bookRepository);
-	ExecutorService executor = Executors.newFixedThreadPool(1);
-    
-    Runnable backgroundTask = new Runnable() {
-
-	    @Override
-	    public void run() {
-		try {
-			listener.listener();
+	final Consumer libraryConsumer = new Consumer(bookRepository, queueName, topicName, libraryname, apolloHost, apolloPort, apolloUser, apolloPassword);
+	 int numThreads = 1;
+	 ExecutorService executor = Executors.newFixedThreadPool(numThreads);
+	  
+	 Runnable backgroundTask = new Runnable() {
+	  
+	 @Override
+	 public void run() {
+		// System.out.println("Hello World");
+		 try {
+			libraryConsumer.listenQueue();
 		} catch (JMSException e) {
-			
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	    }
-	    };
-	    
-	    executor.execute(backgroundTask);
-	    
+	 }
+	 };
+	 executor.execute(backgroundTask);
+	 }
 }
-
-    }
-    
-

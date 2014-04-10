@@ -1,6 +1,5 @@
 package edu.sjsu.cmpe.library.api.resources;
 
-import javax.jms.JMSException;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -14,41 +13,53 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.jms.JMSException;
 
 import com.yammer.dropwizard.jersey.params.LongParam;
 import com.yammer.metrics.annotation.Timed;
 
 import edu.sjsu.cmpe.library.domain.Book;
+import edu.sjsu.cmpe.library.domain.Publisher;
 import edu.sjsu.cmpe.library.domain.Book.Status;
 import edu.sjsu.cmpe.library.dto.BookDto;
 import edu.sjsu.cmpe.library.dto.BooksDto;
 import edu.sjsu.cmpe.library.dto.LinkDto;
-import edu.sjsu.cmpe.library.repository.BookRepository;
 import edu.sjsu.cmpe.library.repository.BookRepositoryInterface;
 
 @Path("/v1/books")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-
-public class BookResource 
-
-{
-	/** bookRepository instance */
+public class BookResource {
+    /** bookRepository instance */
     private final BookRepositoryInterface bookRepository;
-    private final BookRepository bookRepo;
-     /**
-     * BookResource constructor
-     * 
-     * @param bookRepository
-     *            a BookRepository instance
-     */
-    public BookResource(BookRepositoryInterface bookRepository,BookRepository bookRepo) {
-    this.bookRepository = bookRepository;
-	this.bookRepo = bookRepo;
-	
-}
+    
+    //Added
+    private String queueName;
+    private String libraryName;
+    private String apolloHost;
+    private String apolloPort;
+    private String apolloUser;
+    private String apolloPassword;
+    private String topicName;
 
-    @GET
+    /**
+	 * BookResource constructor
+	 * 
+	 * @param bookRepository
+	 *            a BookRepository instance
+	 */
+	public BookResource(BookRepositoryInterface bookRepository, String queueName, String topicName, String libraryName, String apolloHost, String apolloPort, String apolloUser, String apolloPassword) {
+	this.bookRepository = bookRepository;
+	this.queueName = queueName;
+	this.libraryName = libraryName;
+	this.apolloHost = apolloHost;
+	this.apolloPort = apolloPort;
+	this.apolloUser = apolloUser;
+	this.apolloPassword = apolloPassword;
+	this.topicName = topicName;
+	}
+
+	@GET
     @Path("/{isbn}")
     @Timed(name = "view-book")
     public BookDto getBookByIsbn(@PathParam("isbn") LongParam isbn) {
@@ -92,15 +103,21 @@ public class BookResource
     @Path("/{isbn}")
     @Timed(name = "update-book-status")
     public Response updateBookStatus(@PathParam("isbn") LongParam isbn,
-	    @DefaultValue("available") @QueryParam("status") Status status) throws JMSException {
+	    @DefaultValue("available") @QueryParam("status") Status status) {
 	Book book = bookRepository.getBookByISBN(isbn.get());
-	//book.setStatus(status);
-		// Check if the book is avaiable, if Yes then modify the status
-	if(book.getStatus().equals(Status.available)) {
-		book=bookRepository.updateBookStatus(book, status);
+	book.setStatus(status);
+	//System.out.println(queueName+" "+topicName+" "+libraryName+" "+apolloHost+" "+apolloPort+" "+apolloUser+" "+apolloPassword);
+	if(status.equals(Status.lost)){
+	//	System.out.println(queueName+" "+topicName+" "+libraryName+" "+apolloHost+" "+apolloPort+" "+apolloUser+" "+apolloPassword);
+		Publisher lp = new Publisher(queueName,topicName, libraryName, apolloHost, apolloPort, apolloUser, apolloPassword);
+		try {
+			lp.sendOrder(book.getIsbn());
+		} catch (JMSException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
-	
 	BookDto bookResponse = new BookDto(book);
 	String location = "/books/" + book.getIsbn();
 	bookResponse.addLink(new LinkDto("view-book", location, "GET"));
@@ -113,8 +130,7 @@ public class BookResource
     @Timed(name = "delete-book")
     public BookDto deleteBook(@PathParam("isbn") LongParam isbn) {
 	bookRepository.delete(isbn.get());
-	BookDto bookResponse = new BookDto(
-			null);
+	BookDto bookResponse = new BookDto(null);
 	bookResponse.addLink(new LinkDto("create-book", "/books", "POST"));
 
 	return bookResponse;

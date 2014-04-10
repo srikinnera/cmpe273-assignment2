@@ -8,22 +8,24 @@ stompQueueName: /queue/32304.book.orders
 
 # Procurement Service needs to publish to all topics!
 # FIXME - Replace 99999 with your ID
-stompTopicName: /topic/32304.book.*
+stompTopicPrefix: /topic/32304.book.
 
 # TODO: Apollo STOMP Broker URL and login
-#apolloUser: "admin"
-#apolloPassword: "password"
-#apolloHost: "54.215.133.131"
-#apolloPort: 61613
+apolloUser: "admin"
+apolloPassword: "password"
+#apolloHost: "54.215.210.214"
+apolloHost: "54.215.133.131"
+apolloPort: 61613
+
 
 # HTTP-specific options.
 http:
   # Root Path http://{host}:{port}/xxx
-  rootPath: /library/*
+  rootPath: /*
 
   # The port on which the HTTP server listens for service requests.
-  port: 8080
-
+  port: 9090
+  #port: 8080
   # The port on which the HTTP server listens for administrative requests.
   adminPort: 9000
 

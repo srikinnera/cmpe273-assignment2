@@ -1,6 +1,6 @@
-INFO  [2013-12-10 21:33:15,963] org.reflections.Reflections: Reflections took 63 ms to scan 1 urls, producing 4 keys and 4 values 
-DEBUG [2013-12-10 21:33:15,965] edu.sjsu.cmpe.procurement.ProcurementService: Queue name is /queue/99999.book.orders. Topic is /topic/99999.book.*
-WARN  [2013-12-10 21:33:15,979] com.yammer.dropwizard.config.ServerFactory: 
+INFO  [2014-04-10 04:52:38,476] org.reflections.Reflections: Reflections took 199 ms to scan 1 urls, producing 2 keys and 2 values 
+DEBUG [2014-04-10 04:52:38,968] edu.sjsu.cmpe.procurement.ProcurementService: Queue name is /queue/32304.book.orders. Topic is /topic/32304.book.
+WARN  [2014-04-10 04:52:38,989] com.yammer.dropwizard.config.ServerFactory: 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !    THIS SERVICE HAS NO HEALTHCHECKS. THIS MEANS YOU WILL NEVER KNOW IF IT    !
@@ -10,62 +10,23 @@ WARN  [2013-12-10 21:33:15,979] com.yammer.dropwizard.config.ServerFactory:
 !      USE THAT SERVICE. THINK OF IT AS A CONTINUOUS INTEGRATION TEST.         !
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-INFO  [2013-12-10 21:33:16,034] com.yammer.dropwizard.cli.ServerCommand: Starting procurement-service
-INFO  [2013-12-10 21:33:16,035] org.eclipse.jetty.server.Server: jetty-8.1.10.v20130312
-INFO  [2013-12-10 21:33:16,106] com.sun.jersey.server.impl.application.WebApplicationImpl: Initiating Jersey application, version 'Jersey: 1.8 06/24/2011 12:17 PM'
-INFO  [2013-12-10 21:33:16,137] com.yammer.dropwizard.config.Environment: The following paths were found for the configured resources:
+INFO  [2014-04-10 04:52:39,051] com.yammer.dropwizard.cli.ServerCommand: Starting procurement-service
+INFO  [2014-04-10 04:52:39,053] org.eclipse.jetty.server.Server: jetty-8.1.10.v20130312
+INFO  [2014-04-10 04:52:39,138] com.sun.jersey.server.impl.application.WebApplicationImpl: Initiating Jersey application, version 'Jersey: 1.17.1 02/28/2013 12:47 PM'
+INFO  [2014-04-10 04:52:39,171] com.yammer.dropwizard.config.Environment: The following paths were found for the configured resources:
 
+    GET     / (edu.sjsu.cmpe.procurement.api.resources.RootResource)
 
-INFO  [2013-12-10 21:33:16,137] com.yammer.dropwizard.config.Environment: tasks = 
+INFO  [2014-04-10 04:52:39,172] com.yammer.dropwizard.config.Environment: tasks = 
 
     POST    /tasks/gc (com.yammer.dropwizard.tasks.GarbageCollectionTask)
 
-ERROR [2013-12-10 21:33:16,281] com.sun.jersey.server.impl.application.RootResourceUriRules: The ResourceConfig instance does not contain any root resource classes.
-WARN  [2013-12-10 21:33:16,286] /: unavailable
-! com.sun.jersey.api.container.ContainerException: The ResourceConfig instance does not contain any root resource classes.
-! at com.sun.jersey.server.impl.application.RootResourceUriRules.<init>(RootResourceUriRules.java:99) ~[jersey-server-1.8.jar:1.8]
-! at com.sun.jersey.server.impl.application.WebApplicationImpl._initiate(WebApplicationImpl.java:1298) ~[jersey-server-1.8.jar:1.8]
-! at com.sun.jersey.server.impl.application.WebApplicationImpl.access$700(WebApplicationImpl.java:169) ~[jersey-server-1.8.jar:1.8]
-! at com.sun.jersey.server.impl.application.WebApplicationImpl$13.f(WebApplicationImpl.java:775) ~[jersey-server-1.8.jar:1.8]
-! at com.sun.jersey.server.impl.application.WebApplicationImpl$13.f(WebApplicationImpl.java:771) ~[jersey-server-1.8.jar:1.8]
-! at com.sun.jersey.spi.inject.Errors.processWithErrors(Errors.java:193) ~[jersey-core-1.8.jar:1.8]
-! at com.sun.jersey.server.impl.application.WebApplicationImpl.initiate(WebApplicationImpl.java:771) ~[jersey-server-1.8.jar:1.8]
-! at com.sun.jersey.server.impl.application.WebApplicationImpl.initiate(WebApplicationImpl.java:766) ~[jersey-server-1.8.jar:1.8]
-! at com.sun.jersey.spi.container.servlet.ServletContainer.initiate(ServletContainer.java:488) ~[jersey-server-1.8.jar:1.8]
-! at com.sun.jersey.spi.container.servlet.ServletContainer$InternalWebComponent.initiate(ServletContainer.java:318) ~[jersey-server-1.8.jar:1.8]
-! at com.sun.jersey.spi.container.servlet.WebComponent.load(WebComponent.java:609) ~[jersey-server-1.8.jar:1.8]
-! at com.sun.jersey.spi.container.servlet.WebComponent.init(WebComponent.java:210) ~[jersey-server-1.8.jar:1.8]
-! at com.sun.jersey.spi.container.servlet.ServletContainer.init(ServletContainer.java:373) ~[jersey-server-1.8.jar:1.8]
-! at com.sun.jersey.spi.container.servlet.ServletContainer.init(ServletContainer.java:556) ~[jersey-server-1.8.jar:1.8]
-! at javax.servlet.GenericServlet.init(GenericServlet.java:244) ~[javax.servlet-3.0.0.v201112011016.jar:na]
-! at org.eclipse.jetty.servlet.ServletHolder.initServlet(ServletHolder.java:519) [jetty-servlet-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at org.eclipse.jetty.servlet.ServletHolder.doStart(ServletHolder.java:331) [jetty-servlet-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64) [jetty-util-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at org.eclipse.jetty.servlet.ServletHandler.initialize(ServletHandler.java:742) [jetty-servlet-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at org.eclipse.jetty.servlet.ServletContextHandler.startContext(ServletContextHandler.java:265) [jetty-servlet-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:710) [jetty-server-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64) [jetty-util-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at org.eclipse.jetty.server.handler.HandlerWrapper.doStart(HandlerWrapper.java:95) [jetty-server-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64) [jetty-util-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at org.eclipse.jetty.server.handler.HandlerWrapper.doStart(HandlerWrapper.java:95) [jetty-server-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64) [jetty-util-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at org.eclipse.jetty.server.handler.HandlerCollection.doStart(HandlerCollection.java:229) [jetty-server-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64) [jetty-util-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at org.eclipse.jetty.server.handler.HandlerWrapper.doStart(HandlerWrapper.java:95) [jetty-server-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at org.eclipse.jetty.server.Server.doStart(Server.java:280) [jetty-server-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64) [jetty-util-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at com.yammer.dropwizard.cli.ServerCommand.run(ServerCommand.java:48) [dropwizard-core-0.6.2.jar:na]
-! at com.yammer.dropwizard.cli.EnvironmentCommand.run(EnvironmentCommand.java:39) [dropwizard-core-0.6.2.jar:na]
-! at com.yammer.dropwizard.cli.ConfiguredCommand.run(ConfiguredCommand.java:58) [dropwizard-core-0.6.2.jar:na]
-! at com.yammer.dropwizard.cli.Cli.run(Cli.java:53) [dropwizard-core-0.6.2.jar:na]
-! at com.yammer.dropwizard.Service.run(Service.java:61) [dropwizard-core-0.6.2.jar:na]
-! at edu.sjsu.cmpe.procurement.ProcurementService.main(ProcurementService.java:18) [classes/:na]
-INFO  [2013-12-10 21:33:16,306] org.quartz.impl.StdSchedulerFactory: Using default implementation for ThreadExecutor
-INFO  [2013-12-10 21:33:16,308] org.quartz.simpl.SimpleThreadPool: Job execution threads will use class loader of thread: main
-INFO  [2013-12-10 21:33:16,317] org.quartz.core.SchedulerSignalerImpl: Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
-INFO  [2013-12-10 21:33:16,318] org.quartz.core.QuartzScheduler: Quartz Scheduler v.2.2.0 created.
-INFO  [2013-12-10 21:33:16,319] org.quartz.simpl.RAMJobStore: RAMJobStore initialized.
-INFO  [2013-12-10 21:33:16,319] org.quartz.core.QuartzScheduler: Scheduler meta-data: Quartz Scheduler (v2.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+INFO  [2014-04-10 04:52:39,505] org.quartz.impl.StdSchedulerFactory: Using default implementation for ThreadExecutor
+INFO  [2014-04-10 04:52:39,509] org.quartz.simpl.SimpleThreadPool: Job execution threads will use class loader of thread: main
+INFO  [2014-04-10 04:52:39,533] org.quartz.core.SchedulerSignalerImpl: Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+INFO  [2014-04-10 04:52:39,534] org.quartz.core.QuartzScheduler: Quartz Scheduler v.2.2.0 created.
+INFO  [2014-04-10 04:52:39,535] org.quartz.simpl.RAMJobStore: RAMJobStore initialized.
+INFO  [2014-04-10 04:52:39,536] org.quartz.core.QuartzScheduler: Scheduler meta-data: Quartz Scheduler (v2.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
   Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
   NOT STARTED.
   Currently in standby mode.
@@ -73,17 +34,18 @@ INFO  [2013-12-10 21:33:16,319] org.quartz.core.QuartzScheduler: Scheduler meta-
   Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
   Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
 
-INFO  [2013-12-10 21:33:16,319] org.quartz.impl.StdSchedulerFactory: Quartz scheduler 'DefaultQuartzScheduler' initialized from default resource file in Quartz package: 'quartz.properties'
-INFO  [2013-12-10 21:33:16,319] org.quartz.impl.StdSchedulerFactory: Quartz scheduler version: 2.2.0
-INFO  [2013-12-10 21:33:16,319] org.quartz.core.QuartzScheduler: Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started.
-INFO  [2013-12-10 21:33:16,322] de.spinscale.dropwizard.jobs.JobManager: Jobs to run on application start: []
-INFO  [2013-12-10 21:33:16,323] de.spinscale.dropwizard.jobs.JobManager: Jobs with @Every annotation: [class edu.sjsu.cmpe.procurement.ProcureJobs]
-INFO  [2013-12-10 21:33:16,341] de.spinscale.dropwizard.jobs.JobManager: Jobs with @On annotation: []
-INFO  [2013-12-10 21:33:16,349] org.eclipse.jetty.server.AbstractConnector: Started InstrumentedBlockingChannelConnector@0.0.0.0:8080
-INFO  [2013-12-10 21:33:16,351] org.eclipse.jetty.server.AbstractConnector: Started SocketConnector@0.0.0.0:9000
-INFO  [2013-12-10 21:42:01,242] org.reflections.Reflections: Reflections took 63 ms to scan 1 urls, producing 4 keys and 4 values 
-DEBUG [2013-12-10 21:42:01,244] edu.sjsu.cmpe.procurement.ProcurementService: Queue name is /queue/84340.book.orders. Topic is /topic/84340.book.*
-WARN  [2013-12-10 21:42:01,256] com.yammer.dropwizard.config.ServerFactory: 
+INFO  [2014-04-10 04:52:39,536] org.quartz.impl.StdSchedulerFactory: Quartz scheduler 'DefaultQuartzScheduler' initialized from default resource file in Quartz package: 'quartz.properties'
+INFO  [2014-04-10 04:52:39,536] org.quartz.impl.StdSchedulerFactory: Quartz scheduler version: 2.2.0
+INFO  [2014-04-10 04:52:39,536] org.quartz.core.QuartzScheduler: Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started.
+INFO  [2014-04-10 04:52:39,547] de.spinscale.dropwizard.jobs.JobManager: Jobs to run on application start: []
+INFO  [2014-04-10 04:52:39,551] de.spinscale.dropwizard.jobs.JobManager: Jobs with @Every annotation: [class edu.sjsu.cmpe.procurement.jobs.ProcurementSchedulerJob]
+INFO  [2014-04-10 04:52:39,584] de.spinscale.dropwizard.jobs.JobManager: Jobs with @On annotation: []
+INFO  [2014-04-10 04:52:39,594] org.eclipse.jetty.server.AbstractConnector: Started InstrumentedBlockingChannelConnector@0.0.0.0:9090
+WARN  [2014-04-10 04:52:39,596] org.eclipse.jetty.server.AbstractConnector: insufficient threads configured for SocketConnector@0.0.0.0:9000
+INFO  [2014-04-10 04:52:39,597] org.eclipse.jetty.server.AbstractConnector: Started SocketConnector@0.0.0.0:9000
+INFO  [2014-04-10 04:55:30,593] org.reflections.Reflections: Reflections took 84 ms to scan 1 urls, producing 2 keys and 2 values 
+DEBUG [2014-04-10 04:55:31,225] edu.sjsu.cmpe.procurement.ProcurementService: Queue name is /queue/32304.book.orders. Topic is /topic/32304.book.
+WARN  [2014-04-10 04:55:31,245] com.yammer.dropwizard.config.ServerFactory: 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !    THIS SERVICE HAS NO HEALTHCHECKS. THIS MEANS YOU WILL NEVER KNOW IF IT    !
@@ -93,62 +55,23 @@ WARN  [2013-12-10 21:42:01,256] com.yammer.dropwizard.config.ServerFactory:
 !      USE THAT SERVICE. THINK OF IT AS A CONTINUOUS INTEGRATION TEST.         !
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-INFO  [2013-12-10 21:42:01,307] com.yammer.dropwizard.cli.ServerCommand: Starting procurement-service
-INFO  [2013-12-10 21:42:01,309] org.eclipse.jetty.server.Server: jetty-8.1.10.v20130312
-INFO  [2013-12-10 21:42:01,378] com.sun.jersey.server.impl.application.WebApplicationImpl: Initiating Jersey application, version 'Jersey: 1.8 06/24/2011 12:17 PM'
-INFO  [2013-12-10 21:42:01,410] com.yammer.dropwizard.config.Environment: The following paths were found for the configured resources:
+INFO  [2014-04-10 04:55:31,304] com.yammer.dropwizard.cli.ServerCommand: Starting procurement-service
+INFO  [2014-04-10 04:55:31,306] org.eclipse.jetty.server.Server: jetty-8.1.10.v20130312
+INFO  [2014-04-10 04:55:31,393] com.sun.jersey.server.impl.application.WebApplicationImpl: Initiating Jersey application, version 'Jersey: 1.17.1 02/28/2013 12:47 PM'
+INFO  [2014-04-10 04:55:31,425] com.yammer.dropwizard.config.Environment: The following paths were found for the configured resources:
 
+    GET     / (edu.sjsu.cmpe.procurement.api.resources.RootResource)
 
-INFO  [2013-12-10 21:42:01,411] com.yammer.dropwizard.config.Environment: tasks = 
+INFO  [2014-04-10 04:55:31,425] com.yammer.dropwizard.config.Environment: tasks = 
 
     POST    /tasks/gc (com.yammer.dropwizard.tasks.GarbageCollectionTask)
 
-ERROR [2013-12-10 21:42:01,549] com.sun.jersey.server.impl.application.RootResourceUriRules: The ResourceConfig instance does not contain any root resource classes.
-WARN  [2013-12-10 21:42:01,552] /: unavailable
-! com.sun.jersey.api.container.ContainerException: The ResourceConfig instance does not contain any root resource classes.
-! at com.sun.jersey.server.impl.application.RootResourceUriRules.<init>(RootResourceUriRules.java:99) ~[jersey-server-1.8.jar:1.8]
-! at com.sun.jersey.server.impl.application.WebApplicationImpl._initiate(WebApplicationImpl.java:1298) ~[jersey-server-1.8.jar:1.8]
-! at com.sun.jersey.server.impl.application.WebApplicationImpl.access$700(WebApplicationImpl.java:169) ~[jersey-server-1.8.jar:1.8]
-! at com.sun.jersey.server.impl.application.WebApplicationImpl$13.f(WebApplicationImpl.java:775) ~[jersey-server-1.8.jar:1.8]
-! at com.sun.jersey.server.impl.application.WebApplicationImpl$13.f(WebApplicationImpl.java:771) ~[jersey-server-1.8.jar:1.8]
-! at com.sun.jersey.spi.inject.Errors.processWithErrors(Errors.java:193) ~[jersey-core-1.8.jar:1.8]
-! at com.sun.jersey.server.impl.application.WebApplicationImpl.initiate(WebApplicationImpl.java:771) ~[jersey-server-1.8.jar:1.8]
-! at com.sun.jersey.server.impl.application.WebApplicationImpl.initiate(WebApplicationImpl.java:766) ~[jersey-server-1.8.jar:1.8]
-! at com.sun.jersey.spi.container.servlet.ServletContainer.initiate(ServletContainer.java:488) ~[jersey-server-1.8.jar:1.8]
-! at com.sun.jersey.spi.container.servlet.ServletContainer$InternalWebComponent.initiate(ServletContainer.java:318) ~[jersey-server-1.8.jar:1.8]
-! at com.sun.jersey.spi.container.servlet.WebComponent.load(WebComponent.java:609) ~[jersey-server-1.8.jar:1.8]
-! at com.sun.jersey.spi.container.servlet.WebComponent.init(WebComponent.java:210) ~[jersey-server-1.8.jar:1.8]
-! at com.sun.jersey.spi.container.servlet.ServletContainer.init(ServletContainer.java:373) ~[jersey-server-1.8.jar:1.8]
-! at com.sun.jersey.spi.container.servlet.ServletContainer.init(ServletContainer.java:556) ~[jersey-server-1.8.jar:1.8]
-! at javax.servlet.GenericServlet.init(GenericServlet.java:244) ~[javax.servlet-3.0.0.v201112011016.jar:na]
-! at org.eclipse.jetty.servlet.ServletHolder.initServlet(ServletHolder.java:519) [jetty-servlet-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at org.eclipse.jetty.servlet.ServletHolder.doStart(ServletHolder.java:331) [jetty-servlet-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64) [jetty-util-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at org.eclipse.jetty.servlet.ServletHandler.initialize(ServletHandler.java:742) [jetty-servlet-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at org.eclipse.jetty.servlet.ServletContextHandler.startContext(ServletContextHandler.java:265) [jetty-servlet-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:710) [jetty-server-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64) [jetty-util-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at org.eclipse.jetty.server.handler.HandlerWrapper.doStart(HandlerWrapper.java:95) [jetty-server-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64) [jetty-util-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at org.eclipse.jetty.server.handler.HandlerWrapper.doStart(HandlerWrapper.java:95) [jetty-server-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64) [jetty-util-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at org.eclipse.jetty.server.handler.HandlerCollection.doStart(HandlerCollection.java:229) [jetty-server-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64) [jetty-util-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at org.eclipse.jetty.server.handler.HandlerWrapper.doStart(HandlerWrapper.java:95) [jetty-server-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at org.eclipse.jetty.server.Server.doStart(Server.java:280) [jetty-server-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64) [jetty-util-8.1.10.v20130312.jar:8.1.10.v20130312]
-! at com.yammer.dropwizard.cli.ServerCommand.run(ServerCommand.java:48) [dropwizard-core-0.6.2.jar:na]
-! at com.yammer.dropwizard.cli.EnvironmentCommand.run(EnvironmentCommand.java:39) [dropwizard-core-0.6.2.jar:na]
-! at com.yammer.dropwizard.cli.ConfiguredCommand.run(ConfiguredCommand.java:58) [dropwizard-core-0.6.2.jar:na]
-! at com.yammer.dropwizard.cli.Cli.run(Cli.java:53) [dropwizard-core-0.6.2.jar:na]
-! at com.yammer.dropwizard.Service.run(Service.java:61) [dropwizard-core-0.6.2.jar:na]
-! at edu.sjsu.cmpe.procurement.ProcurementService.main(ProcurementService.java:18) [classes/:na]
-INFO  [2013-12-10 21:42:01,574] org.quartz.impl.StdSchedulerFactory: Using default implementation for ThreadExecutor
-INFO  [2013-12-10 21:42:01,576] org.quartz.simpl.SimpleThreadPool: Job execution threads will use class loader of thread: main
-INFO  [2013-12-10 21:42:01,585] org.quartz.core.SchedulerSignalerImpl: Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
-INFO  [2013-12-10 21:42:01,585] org.quartz.core.QuartzScheduler: Quartz Scheduler v.2.2.0 created.
-INFO  [2013-12-10 21:42:01,586] org.quartz.simpl.RAMJobStore: RAMJobStore initialized.
-INFO  [2013-12-10 21:42:01,586] org.quartz.core.QuartzScheduler: Scheduler meta-data: Quartz Scheduler (v2.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+INFO  [2014-04-10 04:55:31,638] org.quartz.impl.StdSchedulerFactory: Using default implementation for ThreadExecutor
+INFO  [2014-04-10 04:55:31,643] org.quartz.simpl.SimpleThreadPool: Job execution threads will use class loader of thread: main
+INFO  [2014-04-10 04:55:31,657] org.quartz.core.SchedulerSignalerImpl: Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+INFO  [2014-04-10 04:55:31,658] org.quartz.core.QuartzScheduler: Quartz Scheduler v.2.2.0 created.
+INFO  [2014-04-10 04:55:31,659] org.quartz.simpl.RAMJobStore: RAMJobStore initialized.
+INFO  [2014-04-10 04:55:31,660] org.quartz.core.QuartzScheduler: Scheduler meta-data: Quartz Scheduler (v2.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
   Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
   NOT STARTED.
   Currently in standby mode.
@@ -156,11 +79,11 @@ INFO  [2013-12-10 21:42:01,586] org.quartz.core.QuartzScheduler: Scheduler meta-
   Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
   Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
 
-INFO  [2013-12-10 21:42:01,587] org.quartz.impl.StdSchedulerFactory: Quartz scheduler 'DefaultQuartzScheduler' initialized from default resource file in Quartz package: 'quartz.properties'
-INFO  [2013-12-10 21:42:01,587] org.quartz.impl.StdSchedulerFactory: Quartz scheduler version: 2.2.0
-INFO  [2013-12-10 21:42:01,587] org.quartz.core.QuartzScheduler: Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started.
-INFO  [2013-12-10 21:42:01,590] de.spinscale.dropwizard.jobs.JobManager: Jobs to run on application start: []
-INFO  [2013-12-10 21:42:01,590] de.spinscale.dropwizard.jobs.JobManager: Jobs with @Every annotation: [class edu.sjsu.cmpe.procurement.ProcureJobs]
-INFO  [2013-12-10 21:42:01,609] de.spinscale.dropwizard.jobs.JobManager: Jobs with @On annotation: []
-INFO  [2013-12-10 21:42:01,617] org.eclipse.jetty.server.AbstractConnector: Started InstrumentedBlockingChannelConnector@0.0.0.0:8080
-INFO  [2013-12-10 21:42:01,618] org.eclipse.jetty.server.AbstractConnector: Started SocketConnector@0.0.0.0:9000
+INFO  [2014-04-10 04:55:31,660] org.quartz.impl.StdSchedulerFactory: Quartz scheduler 'DefaultQuartzScheduler' initialized from default resource file in Quartz package: 'quartz.properties'
+INFO  [2014-04-10 04:55:31,660] org.quartz.impl.StdSchedulerFactory: Quartz scheduler version: 2.2.0
+INFO  [2014-04-10 04:55:31,660] org.quartz.core.QuartzScheduler: Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started.
+INFO  [2014-04-10 04:55:31,664] de.spinscale.dropwizard.jobs.JobManager: Jobs to run on application start: []
+INFO  [2014-04-10 04:55:31,665] de.spinscale.dropwizard.jobs.JobManager: Jobs with @Every annotation: [class edu.sjsu.cmpe.procurement.jobs.ProcurementSchedulerJob]
+INFO  [2014-04-10 04:55:31,679] de.spinscale.dropwizard.jobs.JobManager: Jobs with @On annotation: []
+INFO  [2014-04-10 04:55:31,689] org.eclipse.jetty.server.AbstractConnector: Started InstrumentedBlockingChannelConnector@0.0.0.0:9090
+INFO  [2014-04-10 04:55:31,691] org.eclipse.jetty.server.AbstractConnector: Started SocketConnector@0.0.0.0:9000
